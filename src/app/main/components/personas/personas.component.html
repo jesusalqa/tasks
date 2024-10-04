@@ -1,0 +1,45 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="col-sm-12 col-lg-12 mb-3">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
+                    data-bs-target="#Modalcrearpersona">Crear</button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-sm-12 col-lg-12">
+
+        <app-tabla  
+        [arrycolumn]="arrycolumn" [arrydatain]="this.personas$" [arrayEventos]="arrayEventos"  (dataSalida)="getEventTabla($event)"
+        
+        ></app-tabla>
+    </div>
+
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Modalcrearpersona" tabindex="-1" aria-labelledby="ModalcrearpersonaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalcrearpersonaLabel">Crear Persona</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-formpersona></app-formpersona>
+            </div><!--
+
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        -->
+            <div class="modal-footer" hidden>
+
+            </div>
+        </div>
+    </div>
+</div>

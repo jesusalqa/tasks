@@ -1,0 +1,70 @@
+<!-- Campo de búsqueda -->
+<div class="col-sm-12 col-lg-12 mb-3">
+  <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchTerm" (input)="filterData()">
+</div>
+
+<!-- Tabla -->
+<div class="col-sm-12 col-lg-12">
+  <table class="table table-sm table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let i of getArray(arrycolumn.length)">
+          {{ arrycolumn[i].title }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+      <tr *ngFor="let item of paginatedData">
+        <td scope="row" *ngFor="let i of getArray(arrycolumn.length)">
+          <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="ItemList(item)">
+            {{ getitem(item, arrycolumn[i].namekey) }}
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Paginación -->
+<div class="col-sm-12 col-lg-12">
+  <nav aria-label="Paginación">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="changePage(currentPage - 1)">Anterior</a>
+      </li>
+
+      <li *ngFor="let page of visiblePages" [class.active]="currentPage === page" class="page-item">
+        <a *ngIf="page !== '...'" class="page-link" (click)="changePage(page)">{{ page }}</a>
+        <span *ngIf="page === '...'" class="page-link">...</span>
+      </li>
+
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" (click)="changePage(currentPage + 1)">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Seleccione una acción</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <div class="btn-group me-2 " role="group" aria-label="First group">
+          <button data-bs-dismiss="modal" *ngFor="let btton of arrayEventos" type="button" class="" [class]="'btn ' + btton.classBotton" (click)="EventItem(btton.accionBotton)">
+            {{ btton.titleBotton }}
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

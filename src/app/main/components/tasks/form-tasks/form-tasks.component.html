@@ -1,0 +1,42 @@
+<form [formGroup]="taskForm" >
+  <div class="mb-3">
+    <label for="title" class="form-label">Título de la Tarea <span class="colored"  >*</span> </label>
+    <input type="text" id="title" formControlName="title" class="form-control"  />
+  </div>
+
+  <div class="mb-3">
+    <label for="completed" class="form-label">Completada <span class="colored"  >*</span></label>
+    <select id="completed" formControlName="completed" class="form-control">
+      <option [value]="false">No</option>
+      <option [value]="true">Sí</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="fechaLimite" class="form-label">Fecha Límite <span class="colored"  >*</span></label>
+    <input type="date" id="fechaLimite" formControlName="fechaLimite" class="form-control"  />
+  </div>
+
+  <!-- Selector de personas -->
+  <div class="mb-3">
+    <label for="personas" class="form-label">Asignar Persona <span class="colored"  >*</span> </label>
+    <select id="personas" formControlName="persona" class="form-control">
+      <option *ngFor="let persona of personas" [ngValue]="persona.nombre">{{ persona.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="col-auto pt-2">
+    <button type="button" class="btn btn-secondary" (click)="agregarPersona()">Agregar</button>
+  </div>
+
+  <div class="col-12">
+    <div class="col-12" *ngFor="let habi of personass.controls; let i=index">
+      <button type="button" class="btn btn-primary" *ngIf="habi.value.length > 0">
+        {{ habi.value }}
+        <button type="button" style="margin-left: 8px; border-radius:40px;" class="btn btn-danger btn-sm" (click)="eliminarPersona(i)">x</button>
+      </button>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="taskForm.invalid  && personass.length > 0" (click)="submitTask()" class="btn btn-primary">Guardar Tarea</button>
+</form>

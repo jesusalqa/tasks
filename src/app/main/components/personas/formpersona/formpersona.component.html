@@ -1,0 +1,53 @@
+<!-- Formulario Reactivo -->
+<form [formGroup]="personaForm" >
+
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre Completo</label>
+        <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Nombre completo">
+        <div *ngIf="personaForm.get('nombre')?.dirty && personaForm.get('nombre')?.errors">
+            <p *ngIf="personaForm.get('nombre')?.hasError('required')">Campo Requerido</p>
+            <p *ngIf="personaForm.get('nombre')?.hasError('minlength')">Mínimo 5 Caracteres</p>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="edad" class="form-label">Edad</label>
+        <input type="number" id="edad" class="form-control" formControlName="edad" placeholder="Edad">
+        <div *ngIf="personaForm.get('edad')?.dirty && personaForm.get('edad')?.errors">
+            <p *ngIf="personaForm.get('edad')?.hasError('required')">Campo Requerido</p>
+            <p *ngIf="personaForm.get('edad')?.hasError('min')">Mínimo 18 años</p>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-6">
+            <label class="form-label">Habilidades {{habilidades.length }}</label>
+            <input formControlName="habilidad" type="text" class="form-control" placeholder="Habilidad">
+            <div *ngIf="personaForm.get('habilidad')?.dirty && personaForm.get('habilidad')?.errors">
+                <p *ngIf="personaForm.get('habilidad')?.hasError('required')">Campo Requerido</p>
+            </div>
+        </div>
+
+        <div class="col-auto pt-2">
+            <br>
+            <button type="button" class="btn btn-secondary" (click)="agregarHabilidad()">Agregar</button>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="col-12" *ngFor="let habi of habilidades.controls; let i=index">
+            <button type="button" class="btn btn-primary" *ngIf="habi.value.length > 0"
+                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                {{ habi.value }}
+                <button type="button"   style=" margin-left: 8px; border-radius:40px;" class="btn btn-danger btn-sm" (click)="eliminarHabilidad(i)">x</button>
+            </button>
+        </div>
+    </div>
+
+
+
+    <div class="mt-3">
+        <button type="button" (click)="agregarPersona()" [disabled]="personaForm.invalid  && habilidades.length > 0" class="btn btn-primary">Guardar</button>
+    </div>
+
+</form>
